@@ -1,0 +1,25 @@
+apiVersion: v1
+entries:
+  lnd:
+  - apiVersion: v1
+    appVersion: 0.7.1
+    created: "2019-10-09T11:17:43.919918142-04:00"
+    description: A golang implementation of a Lightning Network node
+    digest: 52578f71abcb5f82ec803268d56b4dbed0785f707d6e54feb2202e90c0404100
+    engine: gotpl
+    home: https://github.com/lightningnetwork/lnd
+    keywords:
+    - lnd
+    - cryptocurrency
+    - blockchain
+    - bitcoin
+    maintainers:
+    - email: tdickman@gmail.com
+      name: tdickman
+    name: lnd
+    sources:
+    - https://github.com/kubernetes/charts
+    urls:
+    - https://github.com/thesis/helm-charts/releases/download/lnd-0.1.6/lnd-0.1.6.tgz
+    version: 0.1.6
+generated: "2019-10-09T11:17:43.664390538-04:00"
