@@ -36,7 +36,8 @@ step.
 
 ```
 NETWORK=testnet
-kubectl exec -it $(kubectl get pod -l "release=my-release" -o jsonpath='{.items[0].metadata.name}') -- lncli -n $NETWORK create
+MY_RELEASE=my-release
+kubectl exec -it $(kubectl get pod -l "release=$MY_RELEASE" -o jsonpath='{.items[0].metadata.name}') -- lncli -n $NETWORK create
 ```
 
 Now you can enable auto unlock for your wallet. Replace `PASSWORD` with your
