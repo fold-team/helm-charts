@@ -4,7 +4,7 @@
 
 image:
   repository: thesisrobot/lnd
-  tag: v0.7.1-beta
+  tag: v0.8.0-beta
   pullPolicy: IfNotPresent
 
 # Ports that are exposed to other pods in your cluster
@@ -64,4 +64,4 @@ loop:
   enable: true
   image:
     repository: thesisrobot/loop
-    tag: 8539cc520f2b61c108d4a07844bdedc823f1d888
+    tag: 43cff31297185807710347d66e2efede3c89c8c9
