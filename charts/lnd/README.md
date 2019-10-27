@@ -23,7 +23,7 @@ repository. By default it runs a testnet node using neutrino.
 To install the chart with the release name `my-release`:
 
 ```
-$ helm install --name my-release stable/lnd
+$ helm install --name my-release fold/lnd
 ```
 
 This command deploys a testnet instance of lnd on the Kubernetes cluster in the
@@ -44,7 +44,7 @@ Now you can enable auto unlock for your wallet. Replace `PASSWORD` with your
 password:
 
 ```
-helm upgrade my-release stable/lnd --set autoUnlock=true --set autoUnlockPassword=PASSWORD
+helm upgrade my-release fold/lnd --set autoUnlock=true --set autoUnlockPassword=PASSWORD
 ```
 
 ## Uninstalling the Chart
