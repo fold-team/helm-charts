@@ -74,6 +74,8 @@ release_charts() {
 }
 
 update_index() {
+    git checkout gh-pages
+
     chart-releaser index -o "$GIT_USERNAME" -r "$GIT_REPOSITORY_NAME" -p .deploy/index.yaml
 
     git config user.email "$GIT_EMAIL"
@@ -86,7 +88,6 @@ update_index() {
         fi
     done
 
-    git checkout gh-pages
     cp --force .deploy/index.yaml index.yaml
 
     if [[ -e ".deploy/docs/charts" ]]; then
