@@ -76,6 +76,11 @@ spec:
           resources:
             requests:
               cpu: "10m"
+          lifecycle:
+            preStop:
+              exec:
+                # Sleep starts as a separate process, so make sure it's killed as well
+                command: ["killall", "sleep"]
         {{- end }}
         {{- if .Values.loop.enable }}
         - name: loop
