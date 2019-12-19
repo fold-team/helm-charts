@@ -64,4 +64,4 @@ loop:
   enable: true
   image:
     repository: thesisrobot/loop
-    tag: 5f8c876b4c082238a1a3ab1491b8dec4a86c87c9
+    tag: 1ea58ad3d61b6d09e10e1075258d19d0060e1938
