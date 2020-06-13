@@ -63,7 +63,7 @@ their default values.
 Parameter                  | Description                        | Default
 -----------------------    | ---------------------------------- | ----------------------------------------------------------
 `image.repository`         | Image source repository name       | `thesisrobot/lnd`
-`image.tag`                | `lnd` release tag.                 | `v0.9.0-beta-wumbo`
+`image.tag`                | `lnd` release tag.                 | `v0.10.1-beta-wumbo`
 `image.pullPolicy`         | Image pull policy                  | `IfNotPresent`
 `internalServices.rpcPort` | RPC Port                           | `10009`
 `externalServices.p2pPort` | P2P Port                           | `9735`
@@ -76,4 +76,4 @@ Parameter                  | Description                        | Default
 `autoUnlockPassword`       | Password used to unlock the wallet |
 `loop.enable`              | Enable loop server                 | `true`
 `loop.image.repository`    | Repository to use for loop         | `thesisrobot/loop`
-`loop.image.tag`           | Tag to use for loop                | `v0.4.0-beta`
+`loop.image.tag`           | Tag to use for loop                | `v0.6.4-beta`
