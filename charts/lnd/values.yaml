@@ -4,7 +4,7 @@
 
 image:
   repository: thesisrobot/lnd
-  tag: v0.10.1-beta-wumbo
+  tag: v0.11.0-beta
   pullPolicy: IfNotPresent
 
 # Ports that are exposed to other pods in your cluster
@@ -53,6 +53,7 @@ configurationFile:
     rpclisten=0.0.0.0:10009
     tlsextradomain=nodes-lnd-internal.nodes
     tlsextraip=0.0.0.0
+    protocol.wumbo-channels=1
 
 # Automatically unlock lnd at startup. This requires a secret
 # with the release name to exist with the key pwd that containers
@@ -64,4 +65,4 @@ loop:
   enable: true
   image:
     repository: thesisrobot/loop
-    tag: v0.6.4-beta
+    tag: v0.8.1-beta
