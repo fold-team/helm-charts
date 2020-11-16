@@ -76,4 +76,4 @@ Parameter                  | Description                        | Default
 `autoUnlockPassword`       | Password used to unlock the wallet |
 `loop.enable`              | Enable loop server                 | `true`
 `loop.image.repository`    | Repository to use for loop         | `thesisrobot/loop`
-`loop.image.tag`           | Tag to use for loop                | `v0.8.1-beta`
+`loop.image.tag`           | Tag to use for loop                | `v0.11.1-beta`
