@@ -77,3 +77,6 @@ Parameter                  | Description                        | Default
 `loop.enable`              | Enable loop server                 | `true`
 `loop.image.repository`    | Repository to use for loop         | `thesisrobot/loop`
 `loop.image.tag`           | Tag to use for loop                | `v0.11.1-beta`
+`pool.enable`              | Enable pool server                 | `true`
+`pool.image.repository`    | Repository to use for pool         | `thesisrobot/pool`
+`pool.image.tag`           | Tag to use for pool                | `v0.3.3-alpha`
