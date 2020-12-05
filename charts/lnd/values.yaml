@@ -69,6 +69,7 @@ loop:
 
 pool:
   enable: true
+  newNodesOnly: false
   image:
     repository: thesisrobot/pool
     tag: v0.3.3-alpha

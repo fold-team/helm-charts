@@ -80,3 +80,4 @@ Parameter                  | Description                        | Default
 `pool.enable`              | Enable pool server                 | `true`
 `pool.image.repository`    | Repository to use for pool         | `thesisrobot/pool`
 `pool.image.tag`           | Tag to use for pool                | `v0.3.3-alpha`
+`pool.newNodesOnly`        | Only buy channels from new nodes   | `false`
