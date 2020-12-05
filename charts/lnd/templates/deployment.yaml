@@ -96,7 +96,7 @@ spec:
         {{- if .Values.pool.enable }}
         - name: pool
           image: {{ .Values.pool.image.repository }}:{{ .Values.pool.image.tag }}
-          command: ["/bin/sh", "-c", "sleep 5 && poold --network={{ .Values.network }}{{- if .Values.pool.newNodesOnly }} --newnodesonly=true{{- endif }}"]
+          command: ["/bin/sh", "-c", "sleep 5 && poold --network={{ .Values.network }}{{- if .Values.pool.newNodesOnly }} --newnodesonly=true{{- end }}"]
           volumeMounts:
             - name: data
               mountPath: /root/
