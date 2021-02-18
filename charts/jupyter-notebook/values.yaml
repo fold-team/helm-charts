@@ -1,0 +1,14 @@
+image:
+  repository: thesisrobot/jupyter-scipy-notebook
+  tag: v0.0.1
+
+host:
+tlsSecret:
+tlsAcme: true
+requireOauthAll: true
+persistence:
+  claimName:
+  size: 2G
+  accessMode: ReadWriteOnce
+
+cloudSqlInstance:

@@ -1,0 +1,61 @@
+{{ if .Values.host }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}
+  annotations:
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    {{ if not .Values.tlsSecret }}
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    {{ end }}
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header GEOIP-COUNTRY-CODE $geoip_country_code;
+    {{ if .Values.requireOauthAll -}}
+    nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+    {{- end }}
+    {{ if .Values.tlsAcme -}}
+    kubernetes.io/tls-acme: "true"
+    {{- end }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  tls:
+  - hosts:
+    - {{ .Values.host }}
+    secretName: {{ .Values.tlsSecret }}
+  rules:
+  - host: {{ .Values.host }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Release.Name }}
+          servicePort: 8888
+{{ end }}
+{{ if or .Values.requireOauthAll }}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: nginx-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: {{ .Release.Name }}-oauth2-proxy
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  rules:
+  - host: {{ .Values.host }}
+    http:
+      paths:
+      - backend:
+          serviceName: oauth2-proxy
+          servicePort: 80
+        path: /oauth2
+  tls:
+  - hosts:
+    - {{ .Values.host }}
+    secretName: {{ .Values.tlsSecret }}
+{{ end }}

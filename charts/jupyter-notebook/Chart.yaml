@@ -1,0 +1,14 @@
+apiVersion: v1
+name: jupyter-notebook
+version: 0.0.1
+appVersion: 0.0.1
+description: A golang implementation of a Lightning Network node
+keywords:
+  - jupyter
+home: https://hub.docker.com/r/jupyter/scipy-notebook
+sources:
+  - https://github.com/kubernetes/charts
+maintainers:
+  - name: tdickman
+    email: tdickman@gmail.com
+engine: gotpl

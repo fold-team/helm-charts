@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: {{ .Release.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - name: http
+              containerPort: 8888
+          volumeMounts:
+            - name: home
+              mountPath: /home/jovyan
+        {{ if .Values.cloudSqlInstance }}
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.11
+          resources:
+            requests:
+              cpu: 25m
+          command: ["/cloud_sql_proxy",
+                    "-instances={{ .Values.cloudSqlInstance }}=tcp:5432",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
+          volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+        {{ end }}
+      volumes:
+        - name: home
+          persistentVolumeClaim:
+            claimName: {{ default .Release.Name .Values.persistence.claimName }}
+        {{ if .Values.cloudSqlInstance }}
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-oauth-credentials
+        {{ end }}
