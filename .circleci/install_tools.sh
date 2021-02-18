@@ -11,7 +11,6 @@ sudo mkdir -p "/usr/local/helm-v$HELM_VERSION"
 sudo tar -xzf "helm-v$HELM_VERSION-linux-amd64.tar.gz" -C "/usr/local/helm-v$HELM_VERSION"
 sudo ln -s "/usr/local/helm-v$HELM_VERSION/linux-amd64/helm" /usr/local/bin/helm
 rm -f "helm-v$HELM_VERSION-linux-amd64.tar.gz"
-helm repo add "stable" "https://charts.helm.sh/stable" --force-update
 helm init --stable-repo-url https://charts.helm.sh/stable --client-only
 
 echo "Installing chart-releaser..."
