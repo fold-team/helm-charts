@@ -26,6 +26,25 @@ entries:
     urls:
     - https://github.com/thesis/helm-charts/releases/download/bitcoind-0.2.3/bitcoind-0.2.3.tgz
     version: 0.2.3
+  jupyter-notebook:
+  - apiVersion: v1
+    appVersion: 0.0.1
+    created: "2021-02-18T22:17:27.58694336Z"
+    description: A golang implementation of a Lightning Network node
+    digest: 341dffcfa8c9451985927911eb3e322004997b68d6372df58e423ee7fbd926c2
+    engine: gotpl
+    home: https://hub.docker.com/r/jupyter/scipy-notebook
+    keywords:
+    - jupyter
+    maintainers:
+    - email: tdickman@gmail.com
+      name: tdickman
+    name: jupyter-notebook
+    sources:
+    - https://github.com/kubernetes/charts
+    urls:
+    - https://github.com/thesis/helm-charts/releases/download/jupyter-notebook-0.0.1/jupyter-notebook-0.0.1.tgz
+    version: 0.0.1
   lnd:
   - apiVersion: v1
     appVersion: 0.11.1
