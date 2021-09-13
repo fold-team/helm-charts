@@ -4,6 +4,9 @@ jobs:
     docker:
       - image: koalaman/shellcheck-alpine
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "0b:bb:0c:92:25:72:56:03:e5:d4:9d:23:0c:30:c3:c8"
       - checkout
       - run:
           name: lint
@@ -11,6 +14,9 @@ jobs:
   release-charts:
     machine: true
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "0b:bb:0c:92:25:72:56:03:e5:d4:9d:23:0c:30:c3:c8"
       - checkout
       - run:
           command: |
