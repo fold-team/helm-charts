@@ -3,6 +3,9 @@ jobs:
   release-charts:
     machine: true
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "17:08:9c:0e:f1:b4:5b:ec:f9:47:2d:6a:d3:a7:0d:d5"
       - checkout
       - run:
           command: |
