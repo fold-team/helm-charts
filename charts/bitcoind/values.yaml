@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 terminationGracePeriodSeconds: 30
 image:
-  repository: arilot/docker-bitcoind
-  tag: 0.17.1
+  repository: thesisrobot/bitcoind
+  tag: v23.0
   pullPolicy: IfNotPresent
 
 service:
