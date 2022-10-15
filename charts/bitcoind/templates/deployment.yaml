@@ -29,8 +29,8 @@ spec:
           volumeMounts:
             - name: configmap
               mountPath: /configmap
-            - name: config
-              mountPath: /bitcoin/.bitcoin/
+            - name: data
+              mountPath: /bitcoin
       {{- end }}
       containers:
         - name: {{ template "bitcoind.fullname" . }}
@@ -50,11 +50,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /bitcoin
-            {{- if .Values.configurationFile }}
-            - name: config
-              mountPath: /bitcoin/.bitcoin/bitcoin.conf
-              subPath: bitcoin.conf
-            {{- end }}
       volumes:
         {{- if .Values.configurationFile }}
         - name: config
