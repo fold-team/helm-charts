@@ -119,3 +119,14 @@ service:
 global:
   # optionally use namespace as dbname
   namespacedDatabases: false
+
+# If this is set, the specified secret is mounted, and
+# the server.key is mounted as the key file, server.crt
+# is mounted as the tls_cert + tls_ca
+serverTLSSecret:
+
+server_tls_ca_file:
+server_tls_key_file:
+server_tls_cert_file:
+server_tls_protocols: secure
+server_tls_ciphers: fast

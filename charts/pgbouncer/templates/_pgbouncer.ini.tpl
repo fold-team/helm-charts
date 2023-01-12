@@ -129,6 +129,12 @@ tcp_keepintvl = 30
 ;job_name = pgbouncer
 ;%include /etc/pgbouncer/pgbouncer-other.ini
 
+{{ if .Values.serverTLSSecret }}
+server_tls_ca_file: {{ .Values.serverTLSSecret }}/server.crt
+server_tls_key_file: {{ .Values.serverTLSSecret }}/server.key
+server_tls_cert_file: {{ .Values.serverTLSSecret }}/server.crt
+{{ end }}
+
 ;;; Custom attributes added from .Values.customSettings
 {{- range $k, $v := .Values.customSettings }}
 {{ $k }} = {{ $v }}
