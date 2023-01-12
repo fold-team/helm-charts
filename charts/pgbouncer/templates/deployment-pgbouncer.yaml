@@ -76,10 +76,10 @@ spec:
           secret:
             secretName: cloudsql-oauth-credentials
         {{ end }}
-        {{ if .Values.serverTLSSecret }}
-        - name: server-tls-secret
+        {{ if .Values.clientTLSSecret }}
+        - name: client-tls-secret
           secret:
-            secretName: {{ .Values.serverTLSSecret }}
+            secretName: {{ .Values.clientTLSSecret }}
         {{ end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -110,9 +110,9 @@ spec:
             - name: config
               mountPath: /etc/pgbouncer
               readOnly: true
-            {{ if .Values.serverTLSSecret }}
-            - name: server-tls-secret
-              mountPath: /etc/server-tls-secret
+            {{ if .Values.clientTLSSecret }}
+            - name: client-tls-secret
+              mountPath: /etc/client-tls-secret
               readOnly: true
             {{ end }}
           resources:
