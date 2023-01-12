@@ -71,6 +71,11 @@ spec:
             items:
               - key: pgbouncer.ini
                 path: pgbouncer.ini
+        {{ if .Values.cloudSqlInstance }}
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-oauth-credentials
+        {{ end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -102,4 +107,18 @@ spec:
               readOnly: true
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-
+        {{ if .Values.cloudSqlInstance }}
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.21.0
+          resources:
+            requests:
+              cpu: 25m
+          command: ["/cloud_sql_proxy",
+                    "-instances={{ .Values.cloudSqlInstance }}=tcp:5433",
+                    "-credential_file=/secrets/cloudsql/credentials.json",
+                    "-term_timeout=30s"]
+          volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+        {{ end }}
