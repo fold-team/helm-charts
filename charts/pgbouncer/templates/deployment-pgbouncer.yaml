@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "pgbouncer.fullname" . }}
+  labels:
+    {{- include "pgbouncer.labels" . | nindent 4 }}
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "pgbouncer.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "pgbouncer.labels" . | nindent 8 }}
+      annotations:
+        checksum/ini: {{ include "pgbouncer.ini.1.0.0" . | sha256sum }}
+        checksum/users: {{ include "userlist.txt.1.0.0" . | sha256sum }}
+        {{- if .Values.spec.annotations }}
+        {{- /* Using toJson instead of toYaml due to https://github.com/helm/helm/issues/3470  */ -}}
+        {{- tpl (toJson .Values.spec.annotations) . | fromJson | toYaml |  nindent 8 }}
+        {{- end }}
+    spec:
+      affinity:
+        {{- if eq .Values.antiAffinity "hard" }}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  {{- include "pgbouncer.selectorLabels" . | nindent 18 }}
+        {{- else if eq .Values.antiAffinity "soft" }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    {{- include "pgbouncer.selectorLabels" . | nindent 20 }}
+        {{- end }}
+        {{- if .Values.nodeAffinity }}
+        nodeAffinity:
+          {{- toYaml .Values.nodeAffinity | nindent 10 }}
+        {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml .Values.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.imagePullSecretName }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecretName }}
+      {{- end }}
+      volumes:
+        - name: userssecret
+          secret:
+            secretName: {{ template "pgbouncer.usersSecretName" . }}
+            items:
+              - key: {{ template "pgbouncer.usersSecretKey" . }}
+                path: userlist.txt
+        - name: config
+          configMap:
+            name: {{ template "pgbouncer.fullname" . }}-config
+            items:
+              - key: pgbouncer.ini
+                path: pgbouncer.ini
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: pgbouncer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: pgbouncer
+              containerPort: {{ .Values.internalPort }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.internalPort }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.internalPort }}
+          lifecycle:
+            preStop:
+              exec:
+                # https://freecontent.manning.com/handling-client-requests-properly-with-kubernetes/
+                command: ["/bin/sh","-c","sleep 5"]
+          volumeMounts:
+            - name: userssecret
+              mountPath: /etc/pgbouncer.d
+              readOnly: true
+            - name: config
+              mountPath: /etc/pgbouncer
+              readOnly: true
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+
