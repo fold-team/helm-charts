@@ -642,4 +642,15 @@ entries:
     urls:
     - https://github.com/thesis/helm-charts/releases/download/lnd-0.1.6/lnd-0.1.6.tgz
     version: 0.1.6
+  pgbouncer:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2023-01-13T13:19:38.759258654Z"
+    description: PgBouncer chart
+    digest: e6e73a7bd6e80ba9789e345cd88c5e16e7021d483b40ebcc7e2e912e56950912
+    home: https://github.com/cradlepoint/kubernetes-helm-chart-pgbouncer
+    name: pgbouncer
+    urls:
+    - https://github.com/fold-team/helm-charts/releases/download/pgbouncer-1.0.15/pgbouncer-1.0.15.tgz
+    version: 1.0.15
 generated: "2019-10-14T23:44:19.077400714Z"
