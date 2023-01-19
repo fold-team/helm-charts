@@ -97,9 +97,11 @@ spec:
             {{ end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          envFrom:
-            - secretRef:
-                name: {{ default (include "pgbouncer.fullname" .) .Values.service.name }}-env-variables
+          env:
+          {{- range $k, $v := .Values.environment_variables }}
+            - name: {{ $k }}
+              value: "{{ $v }}"
+          {{- end }}
         {{ if .Values.cloudSqlInstance }}
         - name: cloudsql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.21.0
