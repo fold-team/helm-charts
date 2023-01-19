@@ -17,8 +17,6 @@ spec:
       labels:
         {{- include "pgbouncer.labels" . | nindent 8 }}
       annotations:
-        checksum/ini: {{ include "pgbouncer.ini.1.0.0" . | sha256sum }}
-        checksum/users: {{ include "userlist.txt.1.0.0" . | sha256sum }}
         {{- if .Values.spec.annotations }}
         {{- /* Using toJson instead of toYaml due to https://github.com/helm/helm/issues/3470  */ -}}
         {{- tpl (toJson .Values.spec.annotations) . | fromJson | toYaml |  nindent 8 }}
@@ -59,18 +57,6 @@ spec:
         - name: {{ .Values.imagePullSecretName }}
       {{- end }}
       volumes:
-        - name: userssecret
-          secret:
-            secretName: {{ template "pgbouncer.usersSecretName" . }}
-            items:
-              - key: {{ template "pgbouncer.usersSecretKey" . }}
-                path: userlist.txt
-        - name: config
-          configMap:
-            name: {{ template "pgbouncer.fullname" . }}-config
-            items:
-              - key: pgbouncer.ini
-                path: pgbouncer.ini
         {{ if .Values.cloudSqlInstance }}
         - name: cloudsql-instance-credentials
           secret:
@@ -104,9 +90,6 @@ spec:
                 # https://freecontent.manning.com/handling-client-requests-properly-with-kubernetes/
                 command: ["/bin/sh","-c","sleep 5"]
           volumeMounts:
-            - name: userssecret
-              mountPath: /etc/pgbouncer.d
-              readOnly: true
             {{ if .Values.clientTLSSecret }}
             - name: client-tls-secret
               mountPath: /etc/client-tls-secret
