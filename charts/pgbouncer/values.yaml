@@ -15,7 +15,7 @@ budget:
   minAvailable: 0
 
 image:
-  repository: cradlepoint/pgbouncer
+  repository: bitnami/pgbouncer
   tag: 1.18.0
   pullPolicy: IfNotPresent
 
@@ -124,3 +124,5 @@ global:
 # the client.key is mounted as the key file, client.crt
 # is mounted as the tls_cert + tls_ca
 clientTLSSecret:
+
+environment_variables:
