@@ -644,6 +644,16 @@ entries:
     version: 0.1.6
   pgbouncer:
   - apiVersion: v1
+    appVersion: 1.19.0
+    created: "2023-01-19T18:00:59.634205356Z"
+    description: PgBouncer chart
+    digest: 640b769f3beec6d09f443a308aaefbba868ec45317d87ab5dd59e85ce43330fe
+    home: https://github.com/cradlepoint/kubernetes-helm-chart-pgbouncer
+    name: pgbouncer
+    urls:
+    - https://github.com/fold-team/helm-charts/releases/download/pgbouncer-1.18.0/pgbouncer-1.18.0.tgz
+    version: 1.18.0
+  - apiVersion: v1
     appVersion: 1.18.0
     created: "2023-01-19T17:54:26.14927227Z"
     description: PgBouncer chart
