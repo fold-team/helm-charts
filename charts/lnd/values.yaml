@@ -4,7 +4,7 @@
 
 image:
   repository: thesisrobot/lnd
-  tag: v0.16.4-beta
+  tag: v0.16.4-beta-c
   pullPolicy: IfNotPresent
 
 # Ports that are exposed to other pods in your cluster
