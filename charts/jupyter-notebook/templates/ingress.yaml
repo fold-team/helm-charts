@@ -1,5 +1,5 @@
 {{ if .Values.host }}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Release.Name }}
@@ -36,7 +36,7 @@ spec:
 {{ end }}
 {{ if or .Values.requireOauthAll }}
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: nginx-ingress
