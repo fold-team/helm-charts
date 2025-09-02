@@ -13,7 +13,8 @@ budget:
   minAvailable: 1
 
 image:
-  repository: bitnami/pgbouncer
+#  repository: bitnami/pgbouncer
+  repository: us.gcr.io/payments-dev-1c20/bitnami/pgbouncer
   tag: 1.23.1
   pullPolicy: IfNotPresent
 
